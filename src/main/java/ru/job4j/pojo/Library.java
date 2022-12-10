@@ -19,7 +19,7 @@ public class Library {
         }
         System.out.println();
         for (int i = 0; i < array.length; i++) {
-            if (array[i].getName().equals("Clean code")) {
+            if ("Clean code".equals(array[i].getName())) {
                 System.out.println(array[i].getName() + "-" + array[i].getNumbers());
             }
         }
