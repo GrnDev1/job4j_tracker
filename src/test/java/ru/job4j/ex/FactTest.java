@@ -19,7 +19,7 @@ class FactTest {
     }
 
     @Test
-    public void whenFactSecondException() {
+    public void whenFact5Then120() {
         Fact second = new Fact();
         int argument = 5;
         int expected = 120;
