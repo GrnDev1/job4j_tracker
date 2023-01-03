@@ -29,6 +29,9 @@ public class PasswordValidator {
             if (!isDigit(password.charAt(i)) && !isLetter(password.charAt(i))) {
                 isCharacterOrNumeric = true;
             }
+            if (validateToUpperCase && validateToLowerCase && isNumeric && isCharacterOrNumeric) {
+                break;
+            }
         }
         if (!validateToUpperCase) {
             throw new IllegalArgumentException("Password should contain at least one uppercase letter");
@@ -51,8 +54,8 @@ public class PasswordValidator {
     private static boolean isContainsWords(String password) {
         String passwordToUpperCase = password.toUpperCase();
         String[] array = {"qwerty", "12345", "password", "admin", "user" };
-        for (int i = 0; i < array.length; i++) {
-            if (passwordToUpperCase.contains(array[i].toUpperCase())) {
+        for (String temp : array) {
+            if (passwordToUpperCase.contains(temp.toUpperCase())) {
                 return true;
             }
         }
