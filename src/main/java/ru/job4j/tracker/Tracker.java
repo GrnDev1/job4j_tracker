@@ -13,12 +13,12 @@ public class Tracker {
 
     public List<Item> findByName(String key) {
         List<Item> result = new ArrayList<Item>();
-        for (int i = 0; i < items.size(); i++) {
-            if (key.equals(items.get(i).getName())) {
-                result.add(items.get(i));
+        for (Item temp : items) {
+            if (key.equals(temp.getName())) {
+                result.add(temp);
             }
         }
-        return new ArrayList<Item>(result);
+        return result;
     }
 
     public Item add(Item item) {
