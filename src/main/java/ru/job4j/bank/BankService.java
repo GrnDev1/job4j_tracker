@@ -57,6 +57,7 @@ public class BankService {
         if (source != null && source.getBalance() >= amount && dest != null) {
             dest.setBalance(dest.getBalance() + amount);
             source.setBalance(source.getBalance() - amount);
+            result = true;
         }
         return result;
     }
