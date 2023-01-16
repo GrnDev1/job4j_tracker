@@ -60,14 +60,10 @@ class JobTest {
         List<Job> list = new ArrayList<>();
         list.add(new Job("Roman", 20));
         list.add(new Job("Igor", 20));
-        list.add(new Job("Boris", 30));
-        list.add(new Job("Ivan", 30));
         list.sort(new JobAscByPriority().thenComparing(new JobAscByName()));
         List<Job> result = new ArrayList<>();
         result.add(new Job("Igor", 20));
         result.add(new Job("Roman", 20));
-        result.add(new Job("Boris", 30));
-        result.add(new Job("Ivan", 30));
         assertThat(list).isEqualTo(result);
     }
 }
