@@ -2,6 +2,14 @@ package ru.job4j.stream;
 
 import java.util.stream.Stream;
 
+enum Suit {
+    Diamonds, Hearts, Spades, Clubs
+}
+
+enum Value {
+    V_6, V_7, V_8
+}
+
 public class Card {
     private Suit suit;
     private Value value;
@@ -20,10 +28,8 @@ public class Card {
     }
 
     public static void main(String[] args) {
-        Suit[] suits = {Suit.Diamonds, Suit.Hearts, Suit.Spades, Suit.Clubs};
-        Value[] values = {Value.V_6, Value.V_7, Value.V_8};
-        Stream.of(suits)
-                .flatMap(suit -> Stream.of(values)
+        Stream.of(Suit.values())
+                .flatMap(suit -> Stream.of(Value.values())
                         .map(value -> new Card(suit, value)))
                 .forEach(System.out::println);
     }
