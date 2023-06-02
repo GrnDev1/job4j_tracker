@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.store.SqlTracker;
 import java.util.List;
 
 public class StartUI {
@@ -9,7 +10,7 @@ public class StartUI {
         this.out = out;
     }
 
-    public void init(Input input, Tracker tracker, List<UserAction> actions) {
+    public void init(Input input, Store store, List<UserAction> actions) {
         boolean run = true;
         while (run) {
             showMenu(actions);
@@ -19,7 +20,7 @@ public class StartUI {
                 continue;
             }
             UserAction action = actions.get(select);
-            run = action.execute(input, tracker);
+            run = action.execute(input, store);
         }
     }
 
@@ -33,12 +34,15 @@ public class StartUI {
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput());
-        Tracker tracker = new Tracker();
-        List<UserAction> actions = List.of(
-                new CreateAction(output), new ShowAction(output), new EditAction(output),
-                new DeleteAction(output), new FindIdAction(output),
-                new FindNameAction(output), new ExitAction(output)
-        );
-        new StartUI(output).init(input, tracker, actions);
+        try (Store tracker = new SqlTracker()) {
+            List<UserAction> actions = List.of(
+                    new CreateAction(output), new ShowAction(output), new EditAction(output),
+                    new DeleteAction(output), new FindIdAction(output),
+                    new FindNameAction(output), new ExitAction(output)
+            );
+            new StartUI(output).init(input, tracker, actions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
