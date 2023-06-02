@@ -121,6 +121,12 @@ public class SqlTracker implements Store {
         return result;
     }
 
+    private static Item getItemWithNewTimestamp(ResultSet set) throws SQLException {
+        Item temp = new Item(set.getInt("id"), set.getString("name"));
+        temp.setDateTime(set.getTimestamp("created"));
+        return temp;
+    }
+
     @Override
     public List<Item> findAll() {
         List<Item> list = new ArrayList<>();
@@ -129,7 +135,8 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = cn.prepareStatement(sql);
              ResultSet set = statement.executeQuery()) {
             while (set.next()) {
-                list.add(new Item(set.getInt("id"), set.getString("name")));
+                Item temp = getItemWithNewTimestamp(set);
+                list.add(temp);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,7 +153,8 @@ public class SqlTracker implements Store {
             statement.setString(1, key);
             try (ResultSet set = statement.executeQuery()) {
                 while (set.next()) {
-                    list.add(new Item(set.getInt("id"), set.getString("name")));
+                    Item temp = getItemWithNewTimestamp(set);
+                    list.add(temp);
                 }
             }
         } catch (SQLException e) {
@@ -164,7 +172,7 @@ public class SqlTracker implements Store {
             statement.setInt(1, id);
             try (ResultSet set = statement.executeQuery()) {
                 if (set.next()) {
-                    result = new Item(set.getInt("id"), set.getString("name"));
+                    result = getItemWithNewTimestamp(set);
                 }
             }
         } catch (SQLException e) {

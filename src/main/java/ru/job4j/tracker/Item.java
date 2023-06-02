@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -67,5 +68,9 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, created);
+    }
+
+    public void setDateTime(Timestamp created) {
+        this.created = created.toLocalDateTime();
     }
 }
