@@ -65,7 +65,7 @@ public class SqlTrackerTest {
         Item item = new Item("item");
         tracker.add(item);
         tracker.delete(item.getId());
-        assertThat(tracker.findById(item.getId())).isEqualTo(null);
+        assertThat(tracker.findById(item.getId())).isNull();
     }
 
     @Test
@@ -98,7 +98,7 @@ public class SqlTrackerTest {
         Item item2 = new Item("item");
         tracker.add(item);
         tracker.add(item2);
-        assertThat(tracker.findByName("item").size()).isEqualTo(2);
+        assertThat(tracker.findByName("item")).size().isEqualTo(2);
     }
 
     @Test
