@@ -12,7 +12,7 @@
 ## Запуск через IDE
 Перейте по пути src / main / java / ru / job4j / tracker / StartUI.java
 
-Нажать на кнопку запуска метода main в IDE
+Нажать на кнопку запуска метода main в IDE.
 
 ## Функционал
 
