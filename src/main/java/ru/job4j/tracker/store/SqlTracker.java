@@ -3,7 +3,6 @@ package ru.job4j.tracker.store;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Store;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class SqlTracker implements Store {
     }
 
     private void init() {
-        try (InputStream in = new FileInputStream("db/liquibase.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("db/liquibase.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -93,7 +92,7 @@ public class SqlTracker implements Store {
         boolean result = false;
         String sql =
                 "UPDATE items "
-                        + "SET name = ?, created = ?"
+                        + "SET name = ?, created = ? "
                         + "WHERE id = ?";
         try (PreparedStatement statement = cn.prepareStatement(sql)) {
             statement.setString(1, item.getName());
