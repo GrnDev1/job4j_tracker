@@ -37,9 +37,7 @@ public class StartUI {
             List<UserAction> actions = List.of(
                     new CreateAction(output), new ShowAction(output), new EditAction(output),
                     new DeleteAction(output), new FindIdAction(output),
-                    new FindNameAction(output), new ExitAction(output),
-                    new CreateManyItems(output), new DeleteAllItems(output)
-            );
+                    new FindNameAction(output), new ExitAction(output));
             new StartUI(output).init(input, tracker, actions);
         } catch (Exception e) {
             e.printStackTrace();
