@@ -74,7 +74,7 @@ public class SqlTracker implements Store {
                         + "VALUES (?, ?)";
         try (PreparedStatement statement = cn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
-            statement.setTimestamp(2, Timestamp.valueOf(item.getDateTime()));
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.execute();
             try (ResultSet set = statement.getGeneratedKeys()) {
                 if (set.next()) {
@@ -96,7 +96,7 @@ public class SqlTracker implements Store {
                         + "WHERE id = ?";
         try (PreparedStatement statement = cn.prepareStatement(sql)) {
             statement.setString(1, item.getName());
-            statement.setTimestamp(2, Timestamp.valueOf(item.getDateTime()));
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.setInt(3, id);
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -122,7 +122,7 @@ public class SqlTracker implements Store {
 
     private static Item getItemWithNewTimestamp(ResultSet set) throws SQLException {
         Item temp = new Item(set.getInt("id"), set.getString("name"));
-        temp.setDateTime(set.getTimestamp("created"));
+        temp.setCreated(set.getTimestamp("created").toLocalDateTime());
         return temp;
     }
 
