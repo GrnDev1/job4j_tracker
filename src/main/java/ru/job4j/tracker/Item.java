@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import ru.job4j.toone.User;
 
 import javax.persistence.*;
@@ -12,9 +13,11 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "items")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
     private String name;
 
