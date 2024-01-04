@@ -1,6 +1,13 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.StubInput;
+import ru.job4j.tracker.output.ConsoleOutput;
+import ru.job4j.tracker.output.Output;
+import ru.job4j.tracker.output.StubOutput;
+import ru.job4j.tracker.store.MemTracker;
 
 import java.util.List;
 
@@ -15,8 +22,8 @@ public class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new CreateAction(output),
-                new ExitAction(output)
+                new Create(output),
+                new Exit(output)
         );
         new StartUI(output).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
@@ -32,8 +39,8 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(item.getId()), "New item name", "1"}
         );
         List<UserAction> actions = List.of(
-                new EditAction(output),
-                new ExitAction(output)
+                new Edit(output),
+                new Exit(output)
         );
         new StartUI(output).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(replacedName);
@@ -48,8 +55,8 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
         List<UserAction> actions = List.of(
-                new DeleteAction(output),
-                new ExitAction(output)
+                new Delete(output),
+                new Exit(output)
         );
         new StartUI(output).init(in, tracker, actions);
         assertThat(tracker.findById(item.getId())).isNull();
@@ -63,7 +70,7 @@ public class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new ExitAction(out)
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString()).isEqualTo(
@@ -83,8 +90,8 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         List<UserAction> actions = List.of(
-                new EditAction(out),
-                new ExitAction(out)
+                new Edit(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -111,8 +118,8 @@ public class StartUITest {
                 new String[] {"0", "1"}
         );
         List<UserAction> actions = List.of(
-                new ShowAction(out),
-                new ExitAction(out)
+                new Show(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -140,8 +147,8 @@ public class StartUITest {
                 new String[] {"0", one.getName(), "1"}
         );
         List<UserAction> actions = List.of(
-                new FindNameAction(out),
-                new ExitAction(out)
+                new FindName(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -169,8 +176,8 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(two.getId()), "1"}
         );
         List<UserAction> actions = List.of(
-                new FindIdAction(out),
-                new ExitAction(out)
+                new FindId(out),
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -195,7 +202,7 @@ public class StartUITest {
         );
         MemTracker tracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new ExitAction(out)
+                new Exit(out)
         );
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
